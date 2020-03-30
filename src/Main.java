@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args){
 
-        String [] names = {"Carlos", "Alex", "Isaac","Carlos", "Daniela", "Dan"};
+        String [] names = {"Carlos", "Alex", "Isaac","Carlos", "Daniela", "Dan", "Dan"};
 
         NameLL list = new NameLL(names[0]);
         list.fromNamesArray(names);

@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class NameLL {
 
     String name;
@@ -57,19 +59,55 @@ public class NameLL {
         return list;
     }
     public static NameLL sort(NameLL inList){
-        return null;
+        if(inList == null || inList.next == null){
+            return inList;
+        }
+        NameLL middlePointer = findMiddle(inList);
+        NameLL nextToMiddlePointer = middlePointer.next;
+        middlePointer.next = null;
+
+        NameLL left = sort(inList);
+        NameLL right = sort(nextToMiddlePointer);
+
+        NameLL sortedList = merge(left, right);
+        return sortedList;
     }
     /*
     Function to merge list after it was splitted by sort() method - CONQUER
      */
     private static NameLL merge(NameLL left, NameLL right){
-        return null;
+        // Base Cases here
+        if(left == null){
+            return right;
+        }
+        if(right == null){
+            return left;
+        }
+        // We are going to check the first char of the string to sort
+        // Carlos - Alex
+        NameLL result = null;
+        if(left.name.charAt(0) <= right.name.charAt(0)){
+            result = left;
+            result.next = merge(left.next, right);
+        }else{
+            result = right;
+            result.next = merge(left, right.next);
+        }
+        return result;
 
     }
     /*
     Function to find the middle of the linked list
      */
     private static NameLL findMiddle(NameLL head){
-        return null;
+        if(head == null){
+            return head;
+        }
+        NameLL slow = head, fast = head;
+        while(fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
     }
 }
