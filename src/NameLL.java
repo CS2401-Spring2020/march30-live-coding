@@ -6,6 +6,9 @@ public class NameLL {
     int counter;
     NameLL next;
 
+    // added default constructor
+    public NameLL(){}
+
     public NameLL(String name){
         this.name = name;
         this.counter = 0;
@@ -58,6 +61,63 @@ public class NameLL {
         }
         return list;
     }
+
+    // to be completed
+    public char[] getInitials(){
+        return null;
+    }
+    // to be completed
+    public char[] getInitials(char[]initials, int pos){
+        return null;
+    }
+    // helper method to get listSize
+    public int listSize(){
+        int counter = 0;
+        NameLL temp = this;
+        while (temp!=null){
+            counter++;
+            temp = temp.next;
+        }
+        return counter;
+    }
+
+    // so far works only with a ll same size and aminos in same position
+    public int compareNameLL(NameLL inList){
+        // start with a simple scenario
+        // assume both link lists are of the same size
+        // and have aminos placed in the same position
+        if(this == null && inList == null){
+            return 0;
+        }
+        int diff = 0;
+        if(this.name.charAt(0) == inList.name.charAt(0)){
+            diff += Math.abs(this.counter - inList.counter);
+            if(this.next!= null && inList.next!=null){
+                diff += this.next.compareNameLL(inList.next);
+            }
+        }
+//        if(this.name.charAt(0) > inList.name.charAt(0)){
+//            diff = inList.counter;
+//            diff += this.compareNameLL(inList.next);
+//        }
+        // there is the case where this.name.charAt(0) < inList.name.charAt(0)
+        // missing
+
+        return diff;
+    }
+
+    // alex > carlos > daniela
+    public boolean isSorted(){
+        if(this.next == null){
+            return true;
+        }
+        if(this.name.charAt(0) > this.next.name.charAt(0)){
+            return false;
+        }else if(this.next.next!=null){
+            this.next.isSorted();
+        }
+        return true;
+    }
     public static NameLL sort(NameLL inList){
         if(inList == null || inList.next == null){
             return inList;
@@ -73,7 +133,7 @@ public class NameLL {
         return sortedList;
     }
     /*
-    Function to merge list after it was splitted by sort() method - CONQUER
+    Function to merge list after it is split by sort() method - CONQUER
      */
     private static NameLL merge(NameLL left, NameLL right){
         // Base Cases here
